@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cẩm Nang Hướng Dẫn Cấu Hình Hệ Thống QR Hải Quan</title>
+    <style>
+        /* ======================================================= */
+        /* PURE CSS - THIẾT KẾ LIGHT THEME HIỆN ĐẠI                 */
+        /* TỐI ƯU HÓA HOÀN TOÀN OFFLINE - KHÔNG PHỤ THUỘC INTERNET  */
+        /* ======================================================= */
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --success-border: #a7f3d0;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --warning-border: #fef3c7;
+            --border-color: #e5e7eb;
+            --code-bg: #111827;
+            --code-text: #f9fafb;
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding: 16px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 32px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header trang cẩm nang */
+        .guide-header {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .guide-header {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .brand-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        @media (min-width: 768px) {
+            .brand-text h1 {
+                font-size: 22px;
+            }
+        }
+
+        .brand-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .meta-tag {
+            background-color: #eff6ff;
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            align-self: flex-start;
+        }
+
+        /* Thẻ liên hệ hỗ trợ kỹ thuật */
+        .support-card {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius-lg);
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .support-avatar {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .support-info h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin: 0;
+        }
+
+        .support-info p {
+            font-size: 13px;
+            color: #1e40af;
+            margin: 2px 0 0 0;
+        }
+
+        /* Cấu trúc các bước (Step Cards) */
+        .step-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .step-badge {
+            background-color: var(--primary);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-title span {
+            color: var(--primary);
+        }
+
+        /* Danh sách hướng dẫn */
+        .guide-list {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .guide-list li {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-size: 14.5px;
+        }
+
+        .guide-list strong {
+            color: var(--text-main);
+        }
+
+        /* Configurator Tool */
+        .configurator-area {
+            background-color: #f9fafb;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .config-label {
+            display: block;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .config-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s;
+            margin-bottom: 16px;
+        }
+
+        .config-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* Khung hiển thị Code */
+        .code-container {
+            position: relative;
+            background-color: var(--code-bg);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .code-block {
+            font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+            font-size: 13px;
+            color: var(--code-text);
+            white-space: pre-wrap;
+            word-break: break-all;
+            line-height: 1.6;
+            margin-top: 25px;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #374151;
+            color: #ffffff;
+            border: 1px solid #4b5563;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-copy:hover {
+            background-color: #4b5563;
+            border-color: #6b7280;
+        }
+
+        .btn-copy:active {
+            transform: scale(0.95);
+        }
+
+        /* Chú ý & Cảnh báo */
+        .alert-box {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin: 16px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .alert-success {
+            background-color: var(--success-bg);
+            color: var(--emerald-700);
+            border: 1px solid var(--success-border);
+        }
+
+        .alert-warning {
+            background-color: var(--warning-bg);
+            color: #b45309;
+            border: 1px solid var(--warning-border);
+        }
+
+        .alert-box h4 {
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Table định dạng cột */
+        .format-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13.5px;
+        }
+
+        .format-table th, .format-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .format-table th {
+            background-color: #f3f4f6;
+            font-weight: 700;
+        }
+
+        /* Accordion sự cố */
+        .trouble-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+
+        .trouble-header {
+            padding: 14px 16px;
+            font-weight: 700;
+            font-size: 14.5px;
+            background-color: #f9fafb;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .trouble-header:hover {
+            background-color: #f3f4f6;
+        }
+
+        .trouble-content {
+            display: none;
+            padding: 16px;
+            font-size: 13.5px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            line-height: 1.5;
+            background-color: #ffffff;
+        }
+
+        .arrow-icon {
+            font-size: 11px;
+            transition: transform 0.2s;
+        }
+
+        /* Custom Toast Notification */
+        .toast {
+            display: none;
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: #10b981;
+            color: white;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            z-index: 9999;
+            font-weight: 600;
+            font-size: 14px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER CỔNG HƯỚNG DẪN -->
+        <header class="guide-header">
+            <div class="brand-text">
+                <h1>Cẩm Nang Cấu HÌNH &amp; VẬN HÀNH</h1>
+                <p>Giải pháp quét mã vạch tự động hóa quy trình nghiệp vụ Hải quan - Cửa khẩu quốc tế Tà Lùng</p>
+            </div>
+            <div class="meta-tag">Phiên bản: v2.5 (Offline)</div>
+        </header>
+
+        <!-- THÔNG TIN LIÊN HỆ HỖ TRỢ KỸ THUẬT -->
+        <div class="support-card">
+            <div class="support-avatar">XT</div>
+            <div class="support-info">
+                <h3>Cán bộ hỗ trợ kỹ thuật trực ban</h3>
+                <p><strong>Nguyễn Xuân Thành</strong> - Bộ phận CNTT Công ty Cổ phần Tà Lùng Quang Minh | Điện thoại: <strong>0827.140.318</strong></p>
+            </div>
+        </div>
+
+        <!-- BƯỚC 1 -->
+        <section class="step-card">
+            <span class="step-badge">Bước 1</span>
+            <h2 class="step-title"><span>1.</span> Cấu Hình Thiết Bị KAW-K136G / KAW-K136F</h2>
+            <p style="font-size:14.5px; color:var(--text-muted); margin-bottom:12px;">Chúng ta cần nạp phím <strong>F12</strong> làm tiền tố gửi trước (Prefix) để hệ điều hành kích hoạt file Excel đối soát tự động khi quét mã.</p>
+            
+            <ul class="guide-list">
+                <li>Mở cuốn <strong>Sách hướng dẫn sử dụng (User Manual)</strong> đi kèm trong hộp máy quét.</li>
+                <li>Tìm đến chương mục <strong>Add Prefix (Thêm tiền tố)</strong> hoặc <strong>Prefix Settings</strong>.</li>
+                <li>Cầm máy quét lên và quét lần lượt các mã vạch sau theo đúng thứ tự:
+                    <ul style="margin-left: 20px; margin-top: 6px; list-style-type: circle;">
+                        <li>Quét mã: <strong>Clear All Prefix</strong> (Xóa sạch cài đặt cũ tránh xung đột).</li>
+                        <li>Quét mã: <strong>Add Prefix</strong> (Yêu cầu thiết lập thêm ký tự đứng trước).</li>
+                        <li>Quét mã: Phím <strong>F12</strong> (Xem ở bảng danh sách mã phím chức năng ở trang cuối của tài liệu).</li>
+                    </ul>
+                </li>
+                <li>Máy quét kêu <strong>"Bíp Bíp"</strong> báo hiệu lưu thành công.</li>
+            </ul>
+
+            <div class="alert-box alert-success">
+                <h4>✓ Cơ chế đầu ra của máy quét</h4>
+                Sau khi quét, mỗi lần quét mã QR, máy sẽ giả lập nhấn nút <strong>F12</strong> trước để gọi lệnh từ AutoHotkey, sau đó gõ dữ liệu 8 cột và kếtthuật tự động bằng lệnh <strong>Enter</strong> để xuống dòng.
+            </div>
+        </section>
+
+        <!-- BƯỚC 2: BỘ CẤU HÌNH SCRIPT TRỰC QUAN -->
+        <section class="step-card">
+            <span class="step-badge">Bước 2</span>
+            <h2 class="step-title"><span>2.</span> Trình Cấu Hình Script AutoHotkey Tự Động</h2>
+            <p style="font-size:14.5px; color:var(--text-muted); margin-bottom:12px;">Nhập từ khóa hoặc tên file Excel đối soát bãi xe của bạn vào ô dưới đây. Mã Script sẽ tự động cập nhật ngay tức thì!</p>
+
+            <!-- Bộ công cụ Configurator -->
+            <div class="configurator-area">
+                <label class="config-label" for="targetFileName">Từ khóa nhận dạng tên file Excel của bạn:</label>
+                <input type="text" id="targetFileName" class="config-input" value="DoiSoat" oninput="updateAHKScript()" placeholder="Ví dụ: DoiSoat, BangKe, KhaiBao...">
+
+                <label class="config-label">Mã kịch bản chạy AutoHotkey (AHK):</label>
+                <div class="code-container">
+                    <button type="button" class="btn-copy" onclick="copyAHKCode()">Sao chép mã</button>
+                    <pre class="code-block" id="ahkCodeDisplay"></pre>
+                </div>
+            </div>
+
+            <ul class="guide-list" style="margin-top: 20px;">
+                <li>Tải và cài đặt phần mềm <strong>AutoHotkey v1.1</strong> từ trang chủ <a href="https://www.autohotkey.com/" target="_blank" style="color:var(--primary); font-weight: 600;">autohotkey.com</a>.</li>
+                <li>Tại thư mục làm việc, nhấp chuột phải chọn <strong>New -> AutoHotkey Script</strong>. Đặt tên là <code>TuDongQuetExcel.ahk</code>.</li>
+                <li>Nhấp chuột phải vào file vừa tạo -> chọn <strong>Edit Script</strong>. Xóa hết nội dung cũ, dán đoạn mã đã copy ở trên vào và lưu lại (Ctrl + S).</li>
+                <li>Kích đúp chuột để chạy file <code>TuDongQuetExcel.ahk</code>. Xuất hiện biểu tượng chữ <strong>H</strong> màu xanh lá ở khay hệ thống là hoàn thành!</li>
+            </ul>
+        </section>
+
+        <!-- BƯỚC 3 -->
+        <section class="step-card">
+            <span class="step-badge">Bước 3</span>
+            <h2 class="step-title"><span>3.</span> Định Dạng File Excel Nhận Liệu</h2>
+            <p style="font-size:14.5px; color:var(--text-muted); margin-bottom:12px;">Để tránh lỗi Excel tự động xóa mất số "0" ở đầu mã số thuế doanh nghiệp, hãy chắc chắn đã thiết lập định dạng cột như sau:</p>
+
+            <table class="format-table">
+                <thead>
+                    <tr>
+                        <th>Cột Excel</th>
+                        <th>Trường thông tin nhận tương ứng</th>
+                        <th>Kiểu định dạng (Format)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cột A</strong></td>
+                        <td>1. Mã số thuế</td>
+                        <td style="color: var(--primary); font-weight: bold;">Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột B</strong></td>
+                        <td>2. Tên công ty</td>
+                        <td>Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột C</strong></td>
+                        <td>3. Số tờ khai</td>
+                        <td style="color: var(--primary); font-weight: bold;">Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột D</strong></td>
+                        <td>4. Địa điểm tập kết</td>
+                        <td>Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột E</strong></td>
+                        <td>5. Biển kiểm soát</td>
+                        <td>Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột F</strong></td>
+                        <td>6. Số hiệu Container</td>
+                        <td>Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột G</strong></td>
+                        <td>7. Mặt hàng</td>
+                        <td>Text (Văn bản)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cột H</strong></td>
+                        <td>8. Người khai hải quan</td>
+                        <td>Text (Văn bản)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="guide-list">
+                <li>Bôi đen toàn bộ các cột từ <strong>A đến H</strong> trong file Excel đối soát bãi xe.</li>
+                <li>Tại thanh menu trang chủ <strong>Home</strong> -> ô lựa chọn định dạng số (Number Format) đổi từ <em>General</em> thành <strong>Text</strong>.</li>
+                <li>Bấm chọn sẵn vào ô <strong>A2</strong> (ô đầu tiên của cột Mã số thuế) để sẵn sàng đón nhận lượt quét.</li>
+            </ul>
+        </section>
+
+        <!-- BƯỚC 4 -->
+        <section class="step-card">
+            <span class="step-badge">Bước 4</span>
+            <h2 class="step-title"><span>4.</span> Vận Hành Hằng Ngày</h2>
+            
+            <div class="alert-box alert-warning">
+                <h4>⚠ LƯU Ý BẮT BUỘC TRƯỚC KHI QUÉT MÃ</h4>
+                Nhấn tổ hợp phím <strong>Ctrl + Shift</strong> để chuyển bộ gõ tiếng Việt (Unikey / EVKey) sang <strong>Tiếng Anh (Biểu tượng chữ E màu xanh)</strong>. Điều này giúp máy quét nhập liệu cực nhanh mà không bị lỗi dính dấu tiếng Việt.
+            </div>
+
+            <ul class="guide-list">
+                <li>Mở sẵn file Excel đối soát (ví dụ: <code>DoiSoat_BaiXe.xlsx</code>) và chọn sẵn ô nhập liệu đầu tiên. Bạn có thể ẩn file xuống dưới Taskbar.</li>
+                <li>Bạn có thể làm việc trên bất kỳ phần mềm chuyên ngành nào khác.</li>
+                <li>Khi phương tiện trình diện mã QR, đưa mã vào tầm quét của thiết bị và ấn quét.</li>
+                <li>Hệ thống tự động nhận tín hiệu, gọi file Excel đối soát nổi lên và điền nhanh 8 trường thông tin thẳng hàng một cách hoàn hảo!</li>
+            </ul>
+        </section>
+
+        <!-- KHẮC PHỤC SỰ CỐ -->
+        <section class="step-card" style="margin-bottom: 48px;">
+            <span class="step-badge">Sự cố</span>
+            <h2 class="step-title"><span>✦</span> Giải Quyết Các Sự Cố Thường Gặp</h2>
+            
+            <div class="trouble-item">
+                <div class="trouble-header" onclick="toggleTrouble(this)">
+                    <span>1. Bấm quét xong Excel tự động hiện bảng "Save As" (Lưu file dưới dạng...)</span>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="trouble-content">
+                    <strong>Nguyên nhân:</strong> Do phần mềm AutoHotkey chưa được khởi chạy ngầm trên Windows nên không "nuốt" được phím F12 gửi từ đầu máy quét.<br>
+                    <strong>Khắc phục:</strong> Hãy kiểm tra khay hệ thống (góc dưới bên phải màn hình) xem có biểu tượng chữ H màu xanh lá cây không. Nếu không có, hãy kích đúp chuột vào file <code>TuDongQuetExcel.ahk</code> để khởi chạy lại.
+                </div>
+            </div>
+
+            <div class="trouble-item">
+                <div class="trouble-header" onclick="toggleTrouble(this)">
+                    <span>2. Chữ gõ ra bị lỗi font dính dấu loạn xạ (Ví dụ: "Anh Đức" gõ thành "Anh d d u u c")</span>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="trouble-content">
+                    <strong>Nguyên nhân:</strong> Do Unikey hoặc EVKey trên máy tính của bạn đang để chế độ Tiếng Việt (Chữ V). Vì máy quét nhập liệu cực nhanh, bộ gõ sẽ hiểu nhầm các ký tự liên tiếp là phím bấm dấu.<br>
+                    <strong>Khắc phục:</strong> Nhấp vào biểu tượng Unikey đổi sang chế độ gõ <strong>Tiếng Anh (Chữ E)</strong> hoặc nhấn tổ hợp phím <strong>Ctrl + Shift</strong> trước khi bắt đầu ca trực quét mã.
+                </div>
+            </div>
+
+            <div class="trouble-item">
+                <div class="trouble-header" onclick="toggleTrouble(this)">
+                    <span>3. Máy quét kêu "Bíp" nhưng file Excel đối soát không tự động nổi lên</span>
+                    <span class="arrow-icon">▼</span>
+                </div>
+                <div class="trouble-content">
+                    <strong>Nguyên nhân:</strong> Tên của file Excel bạn đang mở không chứa từ khóa cấu hình trong đoạn mã Script (Ví dụ bạn cấu hình tìm chữ "DoiSoat" nhưng tên file Excel thực tế là "Bao_Cao_Tuan.xlsx").<br>
+                    <strong>Khắc phục:</strong> Đổi tên file Excel của bạn cho chứa từ khóa đó (Ví dụ: "DoiSoat_Bãi_Xe.xlsx") hoặc chỉnh sửa lại tên cấu hình trong ô nhập của Bước 2 và cập nhật lại mã code vào file AHK.
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Custom Toast Notification thay thế cho alert() -->
+    <div id="toast" class="toast"></div>
+
+    <!-- SCRIPT TỰ ĐỘNG GENERATE CODE -->
+    <script>
+        // Tạo chuỗi kịch bản dưới dạng mảng để loại bỏ hoàn toàn các lỗi cú pháp phân tích chuỗi
+        function generateScriptContent(fileName) {
+            var lines = [
+                "; ==============================================================================",
+                "; KICH BAN TU DONG CHUYEN DU LIEU MAY QUET KAW-K136G VAO DUNG FILE EXCEL MUC TIEU",
+                "; Tac gia: Nguyen Xuan Thanh - Bo phan CNTT - SDT: 0827140318",
+                "; Don vi: Cong ty Co phan Ta Lung Quang Minh",
+                "; ==============================================================================",
+                "",
+                "#NoEnv                  ; Tranh kiem tra bien moi truong trong de tang toc do",
+                "SendMode Input          ; Che do gui phim sieu toc va dang tin cay nhat",
+                "SetWorkingDir %A_ScriptDir%  ; Dam bao thu muc hoat dong nhat quan",
+                "#SingleInstance Force   ; Neu chay lai, tu dong de len ban cu",
+                "SetWinDelay, -1         ; Loai bo do tre cua so de chuyen focus cuc nhanh",
+                "SetKeyDelay, -1         ; Loai bo do tre giua cac phim",
+                "",
+                "; ------------------------------------------------------------------------------",
+                "; [CAU HINH TEN FILE EXCEL CUA BAN]",
+                "; Nhap tu khoa dac trung viet lien khong dau co trong ten file Excel doi soat.",
+                "; ------------------------------------------------------------------------------",
+                "global TenFileExcel := \"" + fileName + "\"",
+                "",
+                "SetTitleMatchMode, 2",
+                "",
+                "; ------------------------------------------------------------------------------",
+                "; HOTKEY F12 - Tin hieu tien to (Prefix) gui tu may quet KAW-K136G",
+                "; ------------------------------------------------------------------------------",
+                "$F12::",
+                "    If WinExist(TenFileExcel \" ahk_class XLMAIN\")",
+                "    {",
+                "        WinActivate, % TenFileExcel \" ahk_class XLMAIN\"",
+                "        WinWaitActive, % TenFileExcel \" ahk_class XLMAIN\", , 0.5",
+                "    }",
+                "    Else If WinExist(\"ahk_class XLMAIN\")",
+                "    {",
+                "        WinActivate, ahk_class XLMAIN",
+                "        WinWaitActive, ahk_class XLMAIN, , 0.5",
+                "    }",
+                "    Else",
+                "    {",
+                "        MsgBox, 48, Canh bao, Vui long mo san file Excel doi soat truoc khi quet!",
+                "    }",
+                "return"
+            ];
+            return lines.join("\n");
+        }
+
+        // Cập nhật hiển thị mã kịch bản
+        function updateAHKScript() {
+            var inputVal = document.getElementById('targetFileName').value.trim();
+            if (!inputVal) {
+                inputVal = "DoiSoat";
+            }
+            var scriptText = generateScriptContent(inputVal);
+            document.getElementById('ahkCodeDisplay').textContent = scriptText;
+        }
+
+        // Sao chép mã kịch bản vào bộ nhớ tạm
+        function copyAHKCode() {
+            var codeText = document.getElementById('ahkCodeDisplay').textContent;
+            var textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                var successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("Đã sao chép mã kịch bản AHK vào bộ nhớ tạm!");
+                } else {
+                    showToast("Không thể sao chép tự động. Vui lòng bôi đen và copy thủ công.");
+                }
+            } catch (err) {
+                showToast("Lỗi sao chép tự động. Vui lòng bôi đen và copy thủ công.");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Hộp thoại thông báo tự chế (Toast) thay thế alert()
+        function showToast(message) {
+            var toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            setTimeout(function() {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Đóng mở các mục sự cố (Accordion)
+        function toggleTrouble(element) {
+            var content = element.nextElementSibling;
+            var arrow = element.querySelector('.arrow-icon');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.innerHTML = '▼';
+                element.style.backgroundColor = '#f9fafb';
+            } else {
+                content.style.display = 'block';
+                arrow.innerHTML = '▲';
+                element.style.backgroundColor = '#f3f4f6';
+            }
+        }
+
+        // Tự động chạy khi load trang lần đầu
+        window.onload = function() {
+            updateAHKScript();
+        };
+    </script>
+</body>
+</html>
