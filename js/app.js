@@ -17,6 +17,15 @@ var qrOutputConfig = {
   "laixe": 8      // Điền vào Cột I
 };
 
+var qrOutputConfig = {
+  "bks": 0,       // Điền vào Cột E
+  "socont": 2,    // Điền vào Cột F
+  "sotokhai": 3,  // Điền vào Cột C
+  "diadiem": 5,   // Điền vào Cột D
+  "mathang": 6,   // Điền vào Cột G
+  "laixe": 8,      // Điền vào Cột I
+  "nguoikhai": 11, // Điền vào Cột H
+};
 /* Ví dụ nếu muốn nhảy cóc:
 var qrOutputConfig = {
   "mst": 0,       // Cột A
