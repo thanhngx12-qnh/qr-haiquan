@@ -23,13 +23,14 @@
             --warning-bg: #fffbeb;
             --warning-border: #fef3c7;
             --border-color: #e5e7eb;
-            --code-bg: #111827;
-            --code-text: #f9fafb;
+            --code-bg: #1e293b;
+            --code-text: #f8fafc;
             --radius-lg: 12px;
             --radius-md: 8px;
             --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
 
         * {
@@ -47,9 +48,7 @@
         }
 
         @media (min-width: 768px) {
-            body {
-                padding: 32px;
-            }
+            body { padding: 32px; }
         }
 
         .container {
@@ -59,7 +58,7 @@
 
         /* Header trang cẩm nang */
         .guide-header {
-            background-color: var(--card-bg);
+            background: linear-gradient(to right, #ffffff, #f8fafc);
             border: 1px solid var(--border-color);
             padding: 24px;
             border-radius: var(--radius-lg);
@@ -87,9 +86,7 @@
         }
 
         @media (min-width: 768px) {
-            .brand-text h1 {
-                font-size: 22px;
-            }
+            .brand-text h1 { font-size: 22px; }
         }
 
         .brand-text p {
@@ -107,6 +104,7 @@
             font-size: 12px;
             font-weight: 600;
             align-self: flex-start;
+            white-space: nowrap;
         }
 
         /* Thẻ liên hệ hỗ trợ kỹ thuật */
@@ -134,6 +132,7 @@
             font-weight: bold;
             font-size: 18px;
             flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
         }
 
         .support-info h3 {
@@ -157,6 +156,11 @@
             padding: 24px;
             margin-bottom: 24px;
             box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .step-card:hover {
+            box-shadow: var(--shadow-md);
         }
 
         .step-badge {
@@ -179,11 +183,13 @@
             margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .step-title span {
+        .step-title svg {
             color: var(--primary);
+            width: 22px;
+            height: 22px;
         }
 
         /* Danh sách hướng dẫn */
@@ -204,7 +210,7 @@
 
         /* Configurator Tool */
         .configurator-area {
-            background-color: #f9fafb;
+            background-color: #f8fafc;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 20px;
@@ -244,6 +250,7 @@
             border-radius: var(--radius-md);
             padding: 16px;
             margin-top: 12px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .code-block {
@@ -255,29 +262,36 @@
             line-height: 1.6;
             margin-top: 25px;
         }
+        
+        .code-comment { color: #64748b; font-style: italic; }
+        .code-keyword { color: #38bdf8; }
+        .code-string { color: #a3e635; }
 
         .btn-copy {
             position: absolute;
             top: 12px;
             right: 12px;
-            background-color: #374151;
+            background-color: #334155;
             color: #ffffff;
-            border: 1px solid #4b5563;
+            border: 1px solid #475569;
             padding: 6px 12px;
             border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .btn-copy:hover {
-            background-color: #4b5563;
-            border-color: #6b7280;
+            background-color: #475569;
         }
 
-        .btn-copy:active {
-            transform: scale(0.95);
+        .btn-copy.copied {
+            background-color: var(--success);
+            border-color: var(--success);
         }
 
         /* Chú ý & Cảnh báo */
@@ -291,7 +305,7 @@
 
         .alert-success {
             background-color: var(--success-bg);
-            color: var(--emerald-700);
+            color: #047857;
             border: 1px solid var(--success-border);
         }
 
@@ -315,6 +329,8 @@
             border-collapse: collapse;
             margin: 16px 0;
             font-size: 13.5px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
         }
 
         .format-table th, .format-table td {
@@ -324,11 +340,15 @@
         }
 
         .format-table th {
-            background-color: #f3f4f6;
+            background-color: #f8fafc;
             font-weight: 700;
         }
+        
+        .format-table tr:hover td {
+            background-color: #f8fafc;
+        }
 
-        /* Accordion sự cố */
+        /* Accordion sự cố - Animation mượt mà */
         .trouble-item {
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
@@ -341,7 +361,7 @@
             padding: 14px 16px;
             font-weight: 700;
             font-size: 14.5px;
-            background-color: #f9fafb;
+            background-color: #f8fafc;
             cursor: pointer;
             user-select: none;
             display: flex;
@@ -351,44 +371,60 @@
         }
 
         .trouble-header:hover {
-            background-color: #f3f4f6;
+            background-color: #f1f5f9;
         }
 
         .trouble-content {
-            display: none;
-            padding: 16px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background-color: #ffffff;
             font-size: 13.5px;
-            border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             line-height: 1.5;
-            background-color: #ffffff;
+        }
+        
+        .trouble-content.active {
+            max-height: 300px;
+            padding: 16px;
+            border-top: 1px solid var(--border-color);
         }
 
         .arrow-icon {
             font-size: 11px;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease;
+        }
+        
+        .trouble-header.open .arrow-icon {
+            transform: rotate(180deg);
         }
 
         /* Custom Toast Notification */
         .toast {
-            display: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background-color: #10b981;
+            background-color: var(--text-main);
             color: white;
-            padding: 14px 28px;
+            padding: 14px 20px;
             border-radius: var(--radius-md);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-lg);
             z-index: 9999;
             font-weight: 600;
             font-size: 14px;
-            animation: slideIn 0.3s ease-out;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
         }
-
-        @keyframes slideIn {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -396,7 +432,6 @@
 
     <div class="container">
         
-        <!-- HEADER CỔNG HƯỚNG DẪN -->
         <header class="guide-header">
             <div class="brand-text">
                 <h1>Cẩm Nang Cấu HÌNH &amp; VẬN HÀNH</h1>
@@ -405,7 +440,6 @@
             <div class="meta-tag">Phiên bản: v2.5 (Offline)</div>
         </header>
 
-        <!-- THÔNG TIN LIÊN HỆ HỖ TRỢ KỸ THUẬT -->
         <div class="support-card">
             <div class="support-avatar">XT</div>
             <div class="support-info">
@@ -414,10 +448,12 @@
             </div>
         </div>
 
-        <!-- BƯỚC 1 -->
         <section class="step-card">
             <span class="step-badge">Bước 1</span>
-            <h2 class="step-title"><span>1.</span> Cấu Hình Thiết Bị KAW-K136G / KAW-K136F</h2>
+            <h2 class="step-title">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                1. Cấu Hình Thiết Bị KAW-K136G / KAW-K136F
+            </h2>
             <p style="font-size:14.5px; color:var(--text-muted); margin-bottom:12px;">Chúng ta cần nạp phím <strong>F12</strong> làm tiền tố gửi trước (Prefix) để hệ điều hành kích hoạt file Excel đối soát tự động khi quét mã.</p>
             
             <ul class="guide-list">
@@ -434,26 +470,33 @@
             </ul>
 
             <div class="alert-box alert-success">
-                <h4>✓ Cơ chế đầu ra của máy quét</h4>
-                Sau khi quét, mỗi lần quét mã QR, máy sẽ giả lập nhấn nút <strong>F12</strong> trước để gọi lệnh từ AutoHotkey, sau đó gõ dữ liệu 8 cột và kếtthuật tự động bằng lệnh <strong>Enter</strong> để xuống dòng.
+                <h4>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                    Cơ chế đầu ra của máy quét
+                </h4>
+                Sau khi quét, mỗi lần quét mã QR, máy sẽ giả lập nhấn nút <strong>F12</strong> trước để gọi lệnh từ AutoHotkey, sau đó gõ dữ liệu 8 cột và kết thúc tự động bằng lệnh <strong>Enter</strong> để xuống dòng.
             </div>
         </section>
 
-        <!-- BƯỚC 2: BỘ CẤU HÌNH SCRIPT TRỰC QUAN -->
         <section class="step-card">
             <span class="step-badge">Bước 2</span>
-            <h2 class="step-title"><span>2.</span> Trình Cấu Hình Script AutoHotkey Tự Động</h2>
+            <h2 class="step-title">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                2. Trình Cấu Hình Script AutoHotkey Tự Động
+            </h2>
             <p style="font-size:14.5px; color:var(--text-muted); margin-bottom:12px;">Nhập từ khóa hoặc tên file Excel đối soát bãi xe của bạn vào ô dưới đây. Mã Script sẽ tự động cập nhật ngay tức thì!</p>
 
-            <!-- Bộ công cụ Configurator -->
             <div class="configurator-area">
                 <label class="config-label" for="targetFileName">Từ khóa nhận dạng tên file Excel của bạn:</label>
                 <input type="text" id="targetFileName" class="config-input" value="DoiSoat" oninput="updateAHKScript()" placeholder="Ví dụ: DoiSoat, BangKe, KhaiBao...">
 
                 <label class="config-label">Mã kịch bản chạy AutoHotkey (AHK):</label>
                 <div class="code-container">
-                    <button type="button" class="btn-copy" onclick="copyAHKCode()">Sao chép mã</button>
-                    <pre class="code-block" id="ahkCodeDisplay"></pre>
+                    <button type="button" class="btn-copy" id="copyBtn" onclick="copyAHKCode()">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <span>Sao chép mã</span>
+                    </button>
+                    <div class="code-block" id="ahkCodeDisplay"></div>
                 </div>
             </div>
 
@@ -465,10 +508,12 @@
             </ul>
         </section>
 
-        <!-- BƯỚC 3 -->
         <section class="step-card">
             <span class="step-badge">Bước 3</span>
-            <h2 class="step-title"><span>3.</span> Định Dạng File Excel Nhận Liệu</h2>
+            <h2 class="step-title">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                3. Định Dạng File Excel Nhận Liệu
+            </h2>
             <p style="font-size:14.5px; color:var(--text-muted); margin-bottom:12px;">Để tránh lỗi Excel tự động xóa mất số "0" ở đầu mã số thuế doanh nghiệp, hãy chắc chắn đã thiết lập định dạng cột như sau:</p>
 
             <table class="format-table">
@@ -530,13 +575,18 @@
             </ul>
         </section>
 
-        <!-- BƯỚC 4 -->
         <section class="step-card">
             <span class="step-badge">Bước 4</span>
-            <h2 class="step-title"><span>4.</span> Vận Hành Hằng Ngày</h2>
+            <h2 class="step-title">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                4. Vận Hành Hằng Ngày
+            </h2>
             
             <div class="alert-box alert-warning">
-                <h4>⚠ LƯU Ý BẮT BUỘC TRƯỚC KHI QUÉT MÃ</h4>
+                <h4>
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    LƯU Ý BẮT BUỘC TRƯỚC KHI QUÉT MÃ
+                </h4>
                 Nhấn tổ hợp phím <strong>Ctrl + Shift</strong> để chuyển bộ gõ tiếng Việt (Unikey / EVKey) sang <strong>Tiếng Anh (Biểu tượng chữ E màu xanh)</strong>. Điều này giúp máy quét nhập liệu cực nhanh mà không bị lỗi dính dấu tiếng Việt.
             </div>
 
@@ -548,10 +598,12 @@
             </ul>
         </section>
 
-        <!-- KHẮC PHỤC SỰ CỐ -->
         <section class="step-card" style="margin-bottom: 48px;">
-            <span class="step-badge">Sự cố</span>
-            <h2 class="step-title"><span>✦</span> Giải Quyết Các Sự Cố Thường Gặp</h2>
+            <span class="step-badge" style="background-color: var(--text-main);">Sự cố</span>
+            <h2 class="step-title">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                Giải Quyết Các Sự Cố Thường Gặp
+            </h2>
             
             <div class="trouble-item">
                 <div class="trouble-header" onclick="toggleTrouble(this)">
@@ -589,119 +641,126 @@
 
     </div>
 
-    <!-- Custom Toast Notification thay thế cho alert() -->
-    <div id="toast" class="toast"></div>
+    <div id="toast" class="toast">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span id="toastMessage">Thông báo</span>
+    </div>
 
-    <!-- SCRIPT TỰ ĐỘNG GENERATE CODE -->
     <script>
-        // Tạo chuỗi kịch bản dưới dạng mảng để loại bỏ hoàn toàn các lỗi cú pháp phân tích chuỗi
+        // Cập nhật hàm sử dụng Template Literals ES6 cho cú pháp sạch đẹp, dễ bảo trì
         function generateScriptContent(fileName) {
-            var lines = [
-                "; ==============================================================================",
-                "; KICH BAN TU DONG CHUYEN DU LIEU MAY QUET KAW-K136G VAO DUNG FILE EXCEL MUC TIEU",
-                "; Tac gia: Nguyen Xuan Thanh - Bo phan CNTT - SDT: 0827140318",
-                "; Don vi: Cong ty Co phan Ta Lung Quang Minh",
-                "; ==============================================================================",
-                "",
-                "#NoEnv                  ; Tranh kiem tra bien moi truong trong de tang toc do",
-                "SendMode Input          ; Che do gui phim sieu toc va dang tin cay nhat",
-                "SetWorkingDir %A_ScriptDir%  ; Dam bao thu muc hoat dong nhat quan",
-                "#SingleInstance Force   ; Neu chay lai, tu dong de len ban cu",
-                "SetWinDelay, -1         ; Loai bo do tre cua so de chuyen focus cuc nhanh",
-                "SetKeyDelay, -1         ; Loai bo do tre giua cac phim",
-                "",
-                "; ------------------------------------------------------------------------------",
-                "; [CAU HINH TEN FILE EXCEL CUA BAN]",
-                "; Nhap tu khoa dac trung viet lien khong dau co trong ten file Excel doi soat.",
-                "; ------------------------------------------------------------------------------",
-                "global TenFileExcel := \"" + fileName + "\"",
-                "",
-                "SetTitleMatchMode, 2",
-                "",
-                "; ------------------------------------------------------------------------------",
-                "; HOTKEY F12 - Tin hieu tien to (Prefix) gui tu may quet KAW-K136G",
-                "; ------------------------------------------------------------------------------",
-                "$F12::",
-                "    If WinExist(TenFileExcel \" ahk_class XLMAIN\")",
-                "    {",
-                "        WinActivate, % TenFileExcel \" ahk_class XLMAIN\"",
-                "        WinWaitActive, % TenFileExcel \" ahk_class XLMAIN\", , 0.5",
-                "    }",
-                "    Else If WinExist(\"ahk_class XLMAIN\")",
-                "    {",
-                "        WinActivate, ahk_class XLMAIN",
-                "        WinWaitActive, ahk_class XLMAIN, , 0.5",
-                "    }",
-                "    Else",
-                "    {",
-                "        MsgBox, 48, Canh bao, Vui long mo san file Excel doi soat truoc khi quet!",
-                "    }",
-                "return"
-            ];
-            return lines.join("\n");
+            return `; ==============================================================================
+<span class="code-comment">; KICH BAN TU DONG CHUYEN DU LIEU MAY QUET KAW-K136G VAO DUNG FILE EXCEL MUC TIEU
+; Tac gia: Nguyen Xuan Thanh - Bo phan CNTT - SDT: 0827140318
+; Don vi: Cong ty Co phan Ta Lung Quang Minh</span>
+; ==============================================================================
+
+<span class="code-keyword">#NoEnv</span>                  <span class="code-comment">; Tranh kiem tra bien moi truong trong de tang toc do</span>
+<span class="code-keyword">SendMode</span> Input          <span class="code-comment">; Che do gui phim sieu toc va dang tin cay nhat</span>
+<span class="code-keyword">SetWorkingDir</span> %A_ScriptDir%  <span class="code-comment">; Dam bao thu muc hoat dong nhat quan</span>
+<span class="code-keyword">#SingleInstance</span> Force   <span class="code-comment">; Neu chay lai, tu dong de len ban cu</span>
+<span class="code-keyword">SetWinDelay</span>, -1         <span class="code-comment">; Loai bo do tre cua so de chuyen focus cuc nhanh</span>
+<span class="code-keyword">SetKeyDelay</span>, -1         <span class="code-comment">; Loai bo do tre giua cac phim</span>
+
+<span class="code-comment">; ------------------------------------------------------------------------------
+; [CAU HINH TEN FILE EXCEL CUA BAN]
+; Nhap tu khoa dac trung viet lien khong dau co trong ten file Excel doi soat.
+; ------------------------------------------------------------------------------</span>
+<span class="code-keyword">global</span> TenFileExcel := <span class="code-string">"${fileName}"</span>
+
+<span class="code-keyword">SetTitleMatchMode</span>, 2
+
+<span class="code-comment">; ------------------------------------------------------------------------------
+; HOTKEY F12 - Tin hieu tien to (Prefix) gui tu may quet KAW-K136G
+; ------------------------------------------------------------------------------</span>
+$F12::
+    <span class="code-keyword">If</span> WinExist(TenFileExcel <span class="code-string">" ahk_class XLMAIN"</span>)
+    {
+        <span class="code-keyword">WinActivate</span>, % TenFileExcel <span class="code-string">" ahk_class XLMAIN"</span>
+        <span class="code-keyword">WinWaitActive</span>, % TenFileExcel <span class="code-string">" ahk_class XLMAIN"</span>, , 0.5
+    }
+    <span class="code-keyword">Else If</span> WinExist(<span class="code-string">"ahk_class XLMAIN"</span>)
+    {
+        <span class="code-keyword">WinActivate</span>, ahk_class XLMAIN
+        <span class="code-keyword">WinWaitActive</span>, ahk_class XLMAIN, , 0.5
+    }
+    <span class="code-keyword">Else</span>
+    {
+        <span class="code-keyword">MsgBox</span>, 48, Canh bao, Vui long mo san file Excel doi soat truoc khi quet!
+    }
+<span class="code-keyword">return</span>`;
         }
 
         // Cập nhật hiển thị mã kịch bản
         function updateAHKScript() {
-            var inputVal = document.getElementById('targetFileName').value.trim();
-            if (!inputVal) {
-                inputVal = "DoiSoat";
-            }
-            var scriptText = generateScriptContent(inputVal);
-            document.getElementById('ahkCodeDisplay').textContent = scriptText;
+            let inputVal = document.getElementById('targetFileName').value.trim();
+            if (!inputVal) inputVal = "DoiSoat";
+            
+            document.getElementById('ahkCodeDisplay').innerHTML = generateScriptContent(inputVal);
         }
 
-        // Sao chép mã kịch bản vào bộ nhớ tạm
+        // Hàm copy sử dụng API Clipboard hiện đại với fallback
         function copyAHKCode() {
-            var codeText = document.getElementById('ahkCodeDisplay').textContent;
-            var textarea = document.createElement('textarea');
-            textarea.value = codeText;
+            const codeText = document.getElementById('ahkCodeDisplay').innerText;
+            const btn = document.getElementById('copyBtn');
+            const originalText = btn.innerHTML;
+
+            const updateButtonState = () => {
+                btn.classList.add('copied');
+                btn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg> <span>Đã copy ✓</span>`;
+                showToast("Đã sao chép mã kịch bản AHK vào bộ nhớ tạm!");
+                
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = originalText;
+                }, 2000);
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(codeText).then(updateButtonState).catch(() => fallbackCopy(codeText, updateButtonState));
+            } else {
+                fallbackCopy(codeText, updateButtonState);
+            }
+        }
+
+        function fallbackCopy(text, successCallback) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
             document.body.appendChild(textarea);
             textarea.select();
-            
             try {
-                var successful = document.execCommand('copy');
-                if (successful) {
-                    showToast("Đã sao chép mã kịch bản AHK vào bộ nhớ tạm!");
-                } else {
-                    showToast("Không thể sao chép tự động. Vui lòng bôi đen và copy thủ công.");
-                }
+                if (document.execCommand('copy')) successCallback();
+                else showToast("Không thể sao chép tự động. Vui lòng bôi đen và copy thủ công.");
             } catch (err) {
-                showToast("Lỗi sao chép tự động. Vui lòng bôi đen và copy thủ công.");
+                showToast("Lỗi sao chép tự động. Vui lòng copy thủ công.");
             }
             document.body.removeChild(textarea);
         }
 
-        // Hộp thoại thông báo tự chế (Toast) thay thế alert()
+        let toastTimeout;
         function showToast(message) {
-            var toast = document.getElementById('toast');
-            toast.innerText = message;
-            toast.style.display = 'block';
-            setTimeout(function() {
-                toast.style.display = 'none';
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = message;
+            
+            toast.classList.add('show');
+            clearTimeout(toastTimeout);
+            
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
             }, 3000);
         }
 
-        // Đóng mở các mục sự cố (Accordion)
+        // Xử lý đóng mở Accordion mượt mà với max-height
         function toggleTrouble(element) {
-            var content = element.nextElementSibling;
-            var arrow = element.querySelector('.arrow-icon');
-            
-            if (content.style.display === 'block') {
-                content.style.display = 'none';
-                arrow.innerHTML = '▼';
-                element.style.backgroundColor = '#f9fafb';
-            } else {
-                content.style.display = 'block';
-                arrow.innerHTML = '▲';
-                element.style.backgroundColor = '#f3f4f6';
-            }
+            const content = element.nextElementSibling;
+            element.classList.toggle('open');
+            content.classList.toggle('active');
         }
 
-        // Tự động chạy khi load trang lần đầu
-        window.onload = function() {
-            updateAHKScript();
-        };
+        // Khởi tạo script lần đầu
+        window.onload = updateAHKScript;
     </script>
 </body>
 </html>
